@@ -9,8 +9,8 @@ export default class TasksController {
     return Task.create({
       title,
       description,
-      status: status,
-      userID=auth.user!.id
+      status,
+      userid: auth.user!.id,
     })
   }
 }
