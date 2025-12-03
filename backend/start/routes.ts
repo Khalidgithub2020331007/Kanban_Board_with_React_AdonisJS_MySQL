@@ -8,5 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+const AuthController =()=>import ('#Controllers/Http/auth_controller') from '../app/Controllers/Http/auth_controller.js'
 
-router.on('/').render('pages/home')
+router.post('/register', [AuthController, 'register'])
+

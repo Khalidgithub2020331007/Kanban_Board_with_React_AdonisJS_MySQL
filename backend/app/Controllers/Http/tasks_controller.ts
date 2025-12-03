@@ -13,4 +13,12 @@ export default class TasksController {
       userid: auth.user!.id,
     })
   }
+  public async destroy({ params, auth }: HttpContext) {
+    const task = await Task.query()
+      .where('id', params.id)
+      .where('user_id', auth.user!.id)
+      .firstOrFail()
+    await task.delete()
+    return { success: true }
+  }
 }
