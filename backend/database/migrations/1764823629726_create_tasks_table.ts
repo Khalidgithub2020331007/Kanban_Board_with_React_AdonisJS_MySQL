@@ -6,10 +6,16 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable('tasks', (table) => {
       table.increments('id')
-      table.integer('user_id').unsigned().references('id').inTable('users')
+      table
+        .integer('userId')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
       table.string('title')
-      table.text('description').nullable()
-      table.enum('status', ['todo', 'inprogress', 'testing', 'complete']).defaultTo('todo')
+      table.text('description')
+      table.enum('status', ['todo', 'in_progress', 'testing', 'complete']).defaultTo('todo')
       table.timestamps(true)
     })
   }
