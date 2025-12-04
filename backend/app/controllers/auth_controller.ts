@@ -52,6 +52,7 @@ export default class AuthController {
       }
 
       // Create API token
+      console.log('User', user)
       let accessToken
       try {
         accessToken = await auth.use('api').createToken(user)
@@ -106,3 +107,89 @@ export default class AuthController {
     })
   }
 }
+
+// import User from '#models/user'
+// import type { HttpContext } from '@adonisjs/core/http'
+// import hash from '@adonisjs/core/services/hash'
+
+// export default class AuthController {
+//   // ========================
+//   // Register new user
+//   // ========================
+//   public async register({ request, response }: HttpContext) {
+//     try {
+//       const data = request.only(['name', 'email', 'password'])
+
+//       // Check if email already exists
+//       const existingUser = await User.query().where('email', data.email).first()
+//       if (existingUser) {
+//         return response.badRequest({ message: 'Email already registered' })
+//       }
+
+//       // Hash the password
+//       data.password = await hash.make(data.password)
+//       const user = await User.create(data)
+
+//       return response.ok({
+//         message: 'User registered successfully',
+//         user,
+//       })
+//     } catch (error) {
+//       return response.internalServerError({
+//         message: 'Failed to register user',
+//         error: error.message,
+//       })
+//     }
+//   }
+
+//   // ========================
+//   // Login user (no token)
+//   // ========================
+//   public async login({ request, response }: HttpContext) {
+//     try {
+//       const { email, password } = request.only(['email', 'password'])
+
+//       // Find user
+//       const user = await User.query().where('email', email).firstOrFail()
+
+//       // Verify password
+//       const passwordVerified = await hash.verify(user.password, password)
+//       if (!passwordVerified) {
+//         return response.unauthorized({ message: 'Invalid credentials' })
+//       }
+
+//       return response.ok({
+//         message: 'Login successful',
+//         user,
+//       })
+//     } catch (error) {
+//       return response.unauthorized({
+//         message: 'Login failed',
+//         error: error.message,
+//       })
+//     }
+//   }
+
+//   // ========================
+//   // Logout (just a dummy here since no token)
+//   // ========================
+//   public async logout({ response }: HttpContext) {
+//     // You can clear session cookies if using sessions
+//     return response.ok({
+//       message: 'Logged out successfully',
+//     })
+//   }
+
+//   // ========================
+//   // Current logged-in user
+//   // ========================
+//   public async me({ response, auth }: HttpContext) {
+//     // If no tokens, you must manage user session manually
+//     const user = auth.user
+//     if (!user) {
+//       return response.unauthorized({ message: 'Not authenticated' })
+//     }
+
+//     return response.ok({ message: 'Current user', user })
+//   }
+// }
