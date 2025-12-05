@@ -7,6 +7,14 @@ export default class extends BaseSchema {
     this.schema.createTable('tasks', (table) => {
       table.increments('id')
       table
+        .integer('assigned_person') // userId of the assigned person
+        .unsigned()
+        .nullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('SET NULL')
+
+      table
         .integer('user_id')
         .unsigned()
         .notNullable()

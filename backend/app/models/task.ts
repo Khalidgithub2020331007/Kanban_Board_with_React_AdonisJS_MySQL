@@ -17,6 +17,8 @@ export default class Task extends BaseModel {
 
   @column()
   declare userId: number
+  @column()
+  declare assigned_person: number | null
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 

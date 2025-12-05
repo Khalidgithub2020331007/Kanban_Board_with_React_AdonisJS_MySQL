@@ -13,13 +13,18 @@ export default class TaskController {
       const user = auth.user
       if (!user) return response.unauthorized({ message: 'Not authenticated' })
 
-      const { title, description } = request.only(['title', 'description'])
+      const { title, description, assigned_person } = request.only([
+        'title',
+        'description',
+        'assigned_person',
+      ])
 
       const task = await Task.create({
         title,
         description,
         status: 'todo' as StatusType,
         userId: user.id,
+        assigned_person,
       })
 
       return response.ok({ message: 'Task created', task })
