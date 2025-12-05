@@ -7,7 +7,7 @@ Includes **user authentication**, **JWT-based login**, and **task management acr
 
 ### 🔐 Authentication
 - User Registration  
-- User Login (JWT)  
+- User Login (API)  
 - Secure Password Hashing  
 - Logout
 
