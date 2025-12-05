@@ -2,6 +2,7 @@ import router from '@adonisjs/core/services/router'
 const AuthController = () => import('#controllers/auth_controller')
 
 const TaskController = () => import('#controllers/tasks_controller')
+const UserController = () => import('#controllers/users_controller')
 // import router from '@adonisjs/core/services/router'
 // import AuthController from '#controllers/auth_controller'
 // import TaskController from '#controllers/task_controller'
@@ -19,3 +20,5 @@ router.post('/tasks', [TaskController, 'store']).use(middleware.auth())
 router.post('/tasks/:taskId/move-right', [TaskController, 'moveRight']).use(middleware.auth())
 router.post('/tasks/:taskId/move-left', [TaskController, 'moveLeft']).use(middleware.auth())
 router.delete('/tasks/:taskId', [TaskController, 'destroy']).use(middleware.auth())
+// Users
+router.get('/users', [UserController, 'getAllUsers']).use(middleware.auth())
